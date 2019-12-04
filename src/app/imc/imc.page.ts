@@ -10,6 +10,7 @@ import { Imc } from '../imc';
 export class ImcPage implements OnInit {
 
   private imc: Imc;
+  private arrayimc: Array<Imc>;//declaro el array
   private static readonly FOTO_DELGADO: string = "assets/delgado.jpg";
   private static readonly FOTO_DESNUTRIDO: string = "assets/desnutrido.jpg";
   private static readonly FOTO_IDEAL: string = "assets/ideal.jpg";
@@ -18,6 +19,7 @@ export class ImcPage implements OnInit {
 
   constructor() {
     this.imc = new Imc();
+    this.arrayimc = new Array<Imc>();//creo la lista
   }
 
   ngOnInit() {
@@ -53,13 +55,51 @@ export class ImcPage implements OnInit {
 
     return tipoIMC;
   }
+
+  mostrarArray() {
+    for (let oimc of this.arrayimc) {
+      console.log(` ALTURA ${oimc.altura}`);
+      console.log(` PESO ${oimc.peso}`);
+      console.log(` NOMINAL ${oimc.nominal}`);
+      console.log(` FOTO ${oimc.foto}`);
+      console.log("------------");//separador
+    }
+
+  }
+
   calcularIMC() {
     let valornumimc = this.imc.peso / (this.imc.altura * this.imc.altura);
     this.imc.nominal = this.obtenerIMCNominal(valornumimc);
     this.imc.foto = this.obtenerImagen(this.imc.nominal);
     console.log(this.imc.nominal);
     console.log(this.imc.foto);
+    //CREO EL NUEVO ELEMENTO DEL ARRAY
+    let imcAux = new Imc();
+    imcAux.altura = this.imc.altura;
+    imcAux.peso = this.imc.peso;
+    imcAux.nominal = this.imc.nominal;
+    imcAux.foto = this.imc.foto;
+    //INTRODUCIRLO
+    this.arrayimc.push(imcAux);
+    console.log(`EL ARRAY ES ${this.arrayimc}`);
+    this.mostrarArray();
 
+
+  }
+
+  limpiarIMC ()
+  {
+    this.arrayimc.length=0;
+  }
+
+  ordenarPorPeso()
+  {
+    console.log("ordenando por peso . . .");
+  }
+
+  ordenarPorAltura()
+  {
+    console.log("ordenando por altura . . .");
   }
 
 }
