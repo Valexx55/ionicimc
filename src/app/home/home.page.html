@@ -7,8 +7,18 @@
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+  <ion-input type="number" placeholder="mete tu nº de dni" [(ngModel)]="num"></ion-input>
+  <ion-button (click)="calcularLetra()">BOTON</ion-button>
+  <!-- routerDirection="back" routerDirection="root"-->
+  <ion-button routerLink="/imc" routerDirection="root">IR A IMC</ion-button>
+  <ion-card *ngIf="letra">
+    <ion-card-header>
+      <ion-card-title>RESULTADO LETRA</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{letra}}
+    </ion-card-content>
+  </ion-card>
+
+  {{letra}}
 </ion-content>

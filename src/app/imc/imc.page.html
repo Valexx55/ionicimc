@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>imc</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-input type="number" placeholder="Intro Peso (kg)" [(ngModel)]="imc.peso"></ion-input>
+  <ion-input type="number" placeholder="Intro Altura (m)" [(ngModel)]="imc.altura"></ion-input>
+  <ion-button (click)="calcularIMC()">CALCULAR</ion-button>
+
+  <ion-grid>
+    <ion-list-header>
+      <ion-col>PESO</ion-col>
+      <ion-col>ALTURA</ion-col>
+      <ion-col>IMC</ion-col>
+      <ion-col>FOTO</ion-col>
+    </ion-list-header>
+  </ion-grid>
+  <ion-grid *ngIf="imc.foto">
+    <ion-row>
+      <ion-col>{{imc.peso}}</ion-col>
+      <ion-col>{{imc.altura}}</ion-col>
+      <ion-col>{{imc.nominal}}</ion-col>
+      <ion-col><ion-img [src]="imc.foto"></ion-img></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
