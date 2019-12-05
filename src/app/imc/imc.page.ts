@@ -25,6 +25,7 @@ export class ImcPage implements OnInit {
   ngOnInit() {
   }
 
+
   private obtenerImagen(tipoIMC: TIMC): string {
     let ruta_foto: string;
 
@@ -92,14 +93,35 @@ export class ImcPage implements OnInit {
     this.arrayimc.length=0;
   }
 
+  oppeso (a:Imc,b:Imc ):number
+  {
+    let resultado = -1;
+
+      resultado = a.peso-b.peso;
+
+    return resultado;
+  }
   ordenarPorPeso()
   {
     console.log("ordenando por peso . . .");
+    this.arrayimc.sort(function (a, b) {
+      return (a.peso - b.peso)
+  });
+    this.arrayimc.sort(this.oppeso);
+    this.arrayimc.sort((a,b)=>a.peso-b.peso);
+    this.arrayimc.sort((a:Imc, b:Imc)=>{
+      let resultado = -1;
+        resultado = a.peso-b.peso;
+      return resultado;
+    })
   }
 
   ordenarPorAltura()
   {
     console.log("ordenando por altura . . .");
+    this.arrayimc.sort(function (a, b) {
+      return (a.altura - b.altura)
+  });
   }
 
 }
