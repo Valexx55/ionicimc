@@ -7,23 +7,20 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LoginserviceService {
-//DESDE AQUÍ NOS COMUNICAMOS CON EL SERVIDOR
-//tx rx datos 
-constructor (private httpclient : HttpClient)
-{
+  //DESDE AQUÍ NOS COMUNICAMOS CON EL SERVIDOR
+  //tx rx datos 
+  private static readonly SERVICIO_POST_LOGIN: string = "http://10.1.2.10:8081/cfticionic/usuariocftic";
 
-}
+  constructor(private httpclient: HttpClient) { }
+  postLogin(login: Login): Observable<Object> {
+    let observable: Observable<Object>;
+    
+      let json_login: string = JSON.stringify(login);//Serializar
+      console.log("Enviado..." + json_login);
+      let cabeceras = new HttpHeaders().set('Content-type', 'application/json');
 
-postLogin (login: Login):Observable<Object>
-{
-
-   let dir_serv : string = "http://10.1.2.10:8081/cfticionic/usuariocftic ";
-   let str_login : string =  JSON.stringify(login);//Serializar
-   console.log ("Enviado..." +str_login);
-   let headers = new HttpHeaders().set ('Content-type', 'application/json');
-
-   return this.httpclient.post 
-    (dir_serv, str_login,{headers:headers, observe:"response"});
-}
+      observable = this.httpclient.post(LoginserviceService.SERVICIO_POST_LOGIN, json_login, { headers: cabeceras, observe: "response" });
+    return observable;
+  }
 
 }
