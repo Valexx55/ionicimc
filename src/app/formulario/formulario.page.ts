@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Login } from '../login';
-import { LoginserviceService } from '../loginservice.service';
+import { ServicioRemoto } from '../loginservice.service';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { NavController, AlertController } from '@ionic/angular';
 
@@ -8,12 +8,12 @@ import { NavController, AlertController } from '@ionic/angular';
   selector: 'app-formulario',
   templateUrl: './formulario.page.html',
   styleUrls: ['./formulario.page.scss'],
-  providers:[LoginserviceService]
+  providers:[ServicioRemoto]
 })
 export class FormularioPage implements OnInit {
 
   login:Login;
-  constructor(private loginservice:LoginserviceService, public nc : NavController, public alertController:AlertController) { 
+  constructor(private loginservice:ServicioRemoto, public nc : NavController, public alertController:AlertController) { 
     console.log("en constructor");
     this.login = new Login();//creo el objeto login
   }
