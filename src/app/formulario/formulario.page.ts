@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Login } from '../login';
 import { LoginserviceService } from '../loginservice.service';
-import { HttpResponse } from '@angular/common/http';
-import { NavController } from '@ionic/angular';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { NavController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-formulario',
@@ -13,7 +13,7 @@ import { NavController } from '@ionic/angular';
 export class FormularioPage implements OnInit {
 
   login:Login;
-  constructor(private loginservice:LoginserviceService, public nc : NavController) { 
+  constructor(private loginservice:LoginserviceService, public nc : NavController, public alertController:AlertController) { 
     console.log("en constructor");
     this.login = new Login();//creo el objeto login
   }
@@ -51,11 +51,41 @@ export class FormularioPage implements OnInit {
 
       },
       error=> {
-        console.log ("Error " + error)
+        console.log ("Error " + error);
+        //window.alert("Error socio");
+        this.presentAlert(<HttpErrorResponse>error);
+        //this.presentAlertPromesas(<HttpErrorResponse>error);
       }
     );
   }
 
+  async presentAlert(error:HttpErrorResponse) {
+    const alert = await this.alertController.create({
+      header: 'AVISO ' + error.status,
+      subHeader: 'Usuario no encontrado',
+      message: 'Revise sus crendeciales ' + error.statusText,
+      buttons: [{
+        text: 'OK',
+        handler: () => {
+          console.log('"Ha tocado OK"');
+        }
+      }]
+    });
+
+    await alert.present();
+  }
+
+   presentAlertPromesas(error:HttpErrorResponse) {
+    this.alertController.create({
+      header: 'AVISO' + error.status,
+      subHeader: 'Error usuario no encontrado',
+      message: 'Revise sus crendeciales ' + error.statusText,
+      buttons: ['OK']
+    }).then (
+      ventana => ventana.present().
+                then ( () => console.log("Ventana Mostrada")));
+
+  }
   ngOnInit() {
     console.log("en init");
   }
